@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.env
+output/*.md
+!output/.gitkeep
+.claude/settings.local.json
