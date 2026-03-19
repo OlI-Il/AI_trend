@@ -33,17 +33,25 @@ python src/get_trends.py
 
 ## MCP Servers
 
+Registered in `.claude/settings.json` (committed — teammates get them automatically on clone).
+
 | Server | Type | Purpose |
 |--------|------|---------|
 | `youtube` | Custom (local) | Search trending AI videos via YouTube Data API |
-| `gmail` | Built-in (claude.ai) | Send formatted trend reports |
+| `gmail` | Custom (local) | Send formatted trend reports via Gmail API |
 | `slack` | Built-in (claude.ai) | Post trends to Slack channels |
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and fill in your keys. Never commit `.env`.
 
 ## Project Structure
 
 ```
 src/get_trends.py          — Core automation script
-src/mcp_youtube/server.py  — Custom YouTube MCP server (FastMCP)
+src/mcp_youtube/server.py  — YouTube MCP server (FastMCP)
+src/mcp_gmail/server.py    — Gmail MCP server (FastMCP)
+.claude/settings.json      — MCP server registration (shared)
 .claude/commands/           — Slash commands
 .claude/hooks.json          — Hook configurations
 skills/ai-trends/           — Custom skill definitions

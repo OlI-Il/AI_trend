@@ -8,29 +8,23 @@ once you have an API key configured.
 To run:
     python -m src.mcp_youtube.server
 
-To register in Claude Code, add to .claude/settings.local.json:
-    {
-      "mcpServers": {
-        "youtube": {
-          "command": "python",
-          "args": ["-m", "src.mcp_youtube.server"],
-          "cwd": "/Users/oli/Documents/AI_trend"
-        }
-      }
-    }
+MCP registration is handled by .claude/settings.json (shared with team).
 
 YouTube Data API v3 setup:
     1. Go to https://console.cloud.google.com/
     2. Create a project and enable "YouTube Data API v3"
     3. Create an API key
-    4. Set YOUTUBE_API_KEY environment variable
+    4. Copy .env.example to .env and set YOUTUBE_API_KEY
 """
 
 import json
 import os
 from datetime import datetime, timedelta
 
+from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
+
+load_dotenv()
 
 mcp = FastMCP("youtube", instructions="Search and retrieve trending AI videos from YouTube.")
 

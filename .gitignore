@@ -1,6 +1,8 @@
 __pycache__/
 *.pyc
 .env
+credentials.json
+token.json
 output/*.md
 !output/.gitkeep
 .claude/settings.local.json

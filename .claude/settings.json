@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "youtube": {
+      "command": "python",
+      "args": ["-m", "src.mcp_youtube.server"]
+    },
+    "gmail": {
+      "command": "python",
+      "args": ["-m", "src.mcp_gmail.server"]
+    }
+  }
+}
