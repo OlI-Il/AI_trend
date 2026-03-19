@@ -11,7 +11,7 @@ Fetches trending AI videos from YouTube each morning and delivers them as a clea
 | Feature | File | What It Shows |
 |---------|------|---------------|
 | CLAUDE.md | `CLAUDE.md` | Project-level instructions |
-| MCP Server | `src/mcp_youtube/server.py` | Custom tool server with FastMCP |
+| MCP Servers | `.claude/settings.json` | Using npm MCP packages |
 | Skill | `skills/ai-trends/skill.md` | Reusable prompt templates |
 | Hook | `.claude/hooks.json` | Event-driven automation |
 | Slash Command | `.claude/commands/get-ai-trends.md` | User-invocable commands |
@@ -19,18 +19,23 @@ Fetches trending AI videos from YouTube each morning and delivers them as a clea
 
 ## Setup
 
-1. **Clone and install dependencies:**
+1. **Clone the repo** — MCP servers are auto-registered via `.claude/settings.json`:
    ```bash
+   git clone https://github.com/OlI-Il/AI_trend.git
+   cd AI_trend
    pip install -r requirements.txt
    ```
 
-2. **Set up YouTube API key:**
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Enable YouTube Data API v3
-   - Create an API key
-   - Set `YOUTUBE_API_KEY` environment variable
+2. **Set up YouTube API key** (optional — transcripts work without it):
+   ```bash
+   cp .env.example .env
+   # Edit .env and add your YOUTUBE_API_KEY
+   ```
 
-3. **Register the MCP server** in Claude Code settings (see `CLAUDE.md` for details)
+3. **Set up Gmail** (one-time OAuth flow):
+   ```bash
+   npx @shinzolabs/gmail-mcp auth
+   ```
 
 4. **GitHub Actions secrets** (for scheduled runs):
    - `ANTHROPIC_API_KEY` — your Anthropic API key
@@ -41,9 +46,4 @@ Fetches trending AI videos from YouTube each morning and delivers them as a clea
 In Claude Code, type:
 ```
 /get-ai-trends
-```
-
-Or run directly:
-```bash
-python src/get_trends.py
 ```

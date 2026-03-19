@@ -3,7 +3,7 @@
     "PostToolUse": [
       {
         "description": "Log YouTube MCP fetches to output/fetch-log.txt",
-        "matcher": "mcp__youtube__search_trending_ai_videos",
+        "matcher": "mcp__youtube",
         "command": "echo \"[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] Fetched trending AI videos\" >> output/fetch-log.txt"
       }
     ]

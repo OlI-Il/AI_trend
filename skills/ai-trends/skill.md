@@ -15,7 +15,7 @@ Activate this skill when the user:
 
 ## Instructions
 
-1. **Fetch videos**: Use the YouTube MCP server's `search_trending_ai_videos` tool with `max_results=10` and `time_period="24h"`.
+1. **Fetch videos**: Use the YouTube MCP server to search for trending AI videos from the last 24 hours (max 10 results).
 
 2. **Format report**: Generate a clean markdown table with columns: #, Title, Channel, Views, Link. Include a "Highlights" section summarizing the top 3 videos.
 
@@ -27,8 +27,6 @@ Activate this skill when the user:
    - Post to Slack (use Slack MCP)
 
 ## Output Format
-
-Use this markdown template:
 
 ```markdown
 # AI Trends — YYYY-MM-DD

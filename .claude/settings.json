@@ -1,12 +1,12 @@
 {
   "mcpServers": {
     "youtube": {
-      "command": "python",
-      "args": ["-m", "src.mcp_youtube.server"]
+      "command": "npx",
+      "args": ["-y", "@kirbah/mcp-youtube"]
     },
     "gmail": {
-      "command": "python",
-      "args": ["-m", "src.mcp_gmail.server"]
+      "command": "npx",
+      "args": ["@shinzolabs/gmail-mcp"]
     }
   }
 }

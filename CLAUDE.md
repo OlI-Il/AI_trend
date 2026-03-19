@@ -7,21 +7,18 @@ Learning project to master Claude Code automation features while building a prac
 ## Tech Stack
 
 - **Language**: Python 3.11+
-- **MCP**: FastMCP (custom YouTube server), Gmail (built-in), Slack (built-in)
-- **APIs**: YouTube Data API v3
+- **MCP**: @kirbah/mcp-youtube (npm), @shinzolabs/gmail-mcp (npm), Slack (built-in)
+- **APIs**: YouTube Data API v3, Gmail API
 - **CI/CD**: GitHub Actions with `claude-code-action`
 
 ## Key Commands
 
 ```bash
-# Start the YouTube MCP server locally
-python -m src.mcp_youtube.server
-
-# Run the trend fetcher manually
-python src/get_trends.py
-
 # Trigger via slash command in Claude Code
 /get-ai-trends
+
+# Run the trend fetcher manually (uses mock data without MCP)
+python src/get_trends.py
 ```
 
 ## Conventions
@@ -35,10 +32,10 @@ python src/get_trends.py
 
 Registered in `.claude/settings.json` (committed — teammates get them automatically on clone).
 
-| Server | Type | Purpose |
-|--------|------|---------|
-| `youtube` | Custom (local) | Search trending AI videos via YouTube Data API |
-| `gmail` | Custom (local) | Send formatted trend reports via Gmail API |
+| Server | Package | Purpose |
+|--------|---------|---------|
+| `youtube` | `@kirbah/mcp-youtube` (npm) | Search videos, get details, transcripts |
+| `gmail` | `@shinzolabs/gmail-mcp` (npm) | Send trend reports via Gmail |
 | `slack` | Built-in (claude.ai) | Post trends to Slack channels |
 
 ## Environment Variables
@@ -49,9 +46,7 @@ Copy `.env.example` to `.env` and fill in your keys. Never commit `.env`.
 
 ```
 src/get_trends.py          — Core automation script
-src/mcp_youtube/server.py  — YouTube MCP server (FastMCP)
-src/mcp_gmail/server.py    — Gmail MCP server (FastMCP)
-.claude/settings.json      — MCP server registration (shared)
+.claude/settings.json      — MCP server registration (npm packages, shared)
 .claude/commands/           — Slash commands
 .claude/hooks.json          — Hook configurations
 skills/ai-trends/           — Custom skill definitions
@@ -65,7 +60,7 @@ Each Claude Code feature has one working example in this project:
 
 1. **CLAUDE.md** — This file. Project instructions Claude reads automatically.
 2. **MEMORY.md** — Persistent memory across conversations.
-3. **MCP Server** — `src/mcp_youtube/server.py` (FastMCP)
+3. **MCP Server** — `.claude/settings.json` (npm packages: @kirbah/mcp-youtube, @shinzolabs/gmail-mcp)
 4. **Skill** — `skills/ai-trends/skill.md`
 5. **Hook** — `.claude/hooks.json` (post-tool-use logging)
 6. **Slash Command** — `.claude/commands/get-ai-trends.md`
