@@ -28,6 +28,22 @@ jobs:
       - name: Build YouTube MCP server
         run: cd mcp/youtube && npm ci && npm run build
 
+      - name: Create MCP config
+        run: |
+          cat > /tmp/mcp-config.json << EOF
+          {
+            "mcpServers": {
+              "youtube": {
+                "command": "node",
+                "args": ["${{ github.workspace }}/mcp/youtube/dist/index.js"],
+                "env": {
+                  "YOUTUBE_API_KEY": "${{ secrets.YOUTUBE_API_KEY }}"
+                }
+              }
+            }
+          }
+          EOF
+
       - name: Fetch AI trends with Claude Code
         uses: anthropics/claude-code-action@v1
         with:
@@ -35,7 +51,7 @@ jobs:
           claude_args: |
             --model claude-sonnet-4-6
             --allowedTools "Write,Bash(python*),mcp__youtube__*"
-            --mcp-config .mcp.json
+            --mcp-config /tmp/mcp-config.json
           show_full_output: "true"
           prompt: |
             IMPORTANT: Do NOT create any Python scripts or code files. Do NOT write to any .py files.
@@ -48,8 +64,6 @@ jobs:
             Write the markdown report directly to output/YYYY-MM-DD-trends.md (use today's date) with a table
             of results and a highlights section. Use the Write tool to create the report file — do not use
             Bash or Python to write it.
-        env:
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
       - name: Publish report to Actions summary
         run: |
