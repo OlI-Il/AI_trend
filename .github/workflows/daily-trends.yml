@@ -64,6 +64,8 @@ jobs:
             Write the markdown report directly to output/YYYY-MM-DD-trends.md (use today's date) with a table
             of results and a highlights section. Use the Write tool to create the report file — do not use
             Bash or Python to write it.
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
       - name: Publish report to Actions summary
         run: |
