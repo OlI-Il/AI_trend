@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "youtube": {
+      "command": "node",
+      "args": ["mcp/youtube/dist/index.js"]
+    }
+  }
+}
