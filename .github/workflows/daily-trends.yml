@@ -33,6 +33,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: "--model claude-haiku-4-5-20251001"
+          show_full_output: "true"
           prompt: |
             Run the /get-ai-trends slash command to fetch today's trending AI videos.
             Save the report to output/ with the filename format YYYY-MM-DD-trends.md.
@@ -40,7 +41,12 @@ jobs:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
       - name: Publish report to Actions summary
-        run: cat output/*.md >> $GITHUB_STEP_SUMMARY
+        run: |
+          if ls output/*.md 2>/dev/null; then
+            cat output/*.md >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No report generated." >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Commit trend report
         run: |
