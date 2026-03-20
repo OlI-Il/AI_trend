@@ -35,7 +35,7 @@ jobs:
           claude_args: "--model claude-sonnet-4-6"
           show_full_output: "true"
           additional_permissions: |
-            Write(output/**)
+            Write(output/*)
             Bash(python*)
             mcp__youtube__*
           prompt: |
