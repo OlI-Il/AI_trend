@@ -1,6 +1,9 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import * as ytTranscript from "youtube-transcript";
+// Dynamic import needed: youtube-transcript@1.3.0 has "type": "module" but
+// "main" points to a CJS file with no "exports" field. Static named imports fail on Node 20.
+const ytModule = await import("youtube-transcript");
+const YoutubeTranscript = ytModule.YoutubeTranscript ?? (ytModule as any).default?.YoutubeTranscript;
 import { CHARACTER_LIMIT } from "../constants.js";
 import type { TranscriptEntry } from "../types.js";
 
@@ -70,11 +73,7 @@ Errors:
     },
     async (params) => {
       try {
-        const fetchFn = ytTranscript.fetchTranscript ?? ytTranscript.YoutubeTranscript?.fetchTranscript;
-        if (!fetchFn) {
-          throw new Error("youtube-transcript module has no usable export");
-        }
-        const rawEntries = await fetchFn(params.video_id, {
+        const rawEntries = await YoutubeTranscript.fetchTranscript(params.video_id, {
           lang: params.language,
         });
 
@@ -87,7 +86,7 @@ Errors:
           };
         }
 
-        const entries: TranscriptEntry[] = rawEntries.map((e) => ({
+        const entries: TranscriptEntry[] = rawEntries.map((e: any) => ({
           text: e.text,
           start: e.offset / 1000,
           duration: e.duration / 1000,
