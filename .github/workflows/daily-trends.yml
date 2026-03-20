@@ -13,6 +13,8 @@ permissions:
 jobs:
   fetch-trends:
     runs-on: ubuntu-latest
+    env:
+      YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -30,6 +32,11 @@ jobs:
 
       - name: Create MCP config
         run: |
+          if [ -z "${YOUTUBE_API_KEY}" ]; then
+            echo "::error::YOUTUBE_API_KEY is empty or missing. Set it in repo secrets."
+            exit 1
+          fi
+
           cat > /tmp/mcp-config.json << EOF
           {
             "mcpServers": {
@@ -37,7 +44,7 @@ jobs:
                 "command": "node",
                 "args": ["${{ github.workspace }}/mcp/youtube/dist/index.js"],
                 "env": {
-                  "YOUTUBE_API_KEY": "${{ secrets.YOUTUBE_API_KEY }}"
+                  "YOUTUBE_API_KEY": "${YOUTUBE_API_KEY}"
                 }
               }
             }
@@ -48,6 +55,8 @@ jobs:
         run: |
           echo "=== Workspace ==="
           ls -la ${{ github.workspace }}/mcp/youtube/dist/
+          echo "=== YOUTUBE_API_KEY present ==="
+          if [ -n "${YOUTUBE_API_KEY}" ]; then echo "yes"; else echo "no"; fi
           echo "=== MCP config ==="
           cat /tmp/mcp-config.json
           echo "=== .mcp.json ==="
