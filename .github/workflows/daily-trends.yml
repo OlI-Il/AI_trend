@@ -32,12 +32,10 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: "--model claude-sonnet-4-6"
+          claude_args: |
+            --model claude-sonnet-4-6
+            --allowedTools "Write(output/**),Bash(python*),mcp__youtube__*"
           show_full_output: "true"
-          additional_permissions: |
-            Write(output/*)
-            Bash(python*)
-            mcp__youtube__*
           prompt: |
             IMPORTANT: Do NOT create any Python scripts or code files. Do NOT write to any .py files.
             Only use MCP tools and the Write tool to create the final markdown report.
