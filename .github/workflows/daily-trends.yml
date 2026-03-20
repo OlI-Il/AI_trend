@@ -44,6 +44,17 @@ jobs:
           }
           EOF
 
+      - name: Debug MCP setup
+        run: |
+          echo "=== Workspace ==="
+          ls -la ${{ github.workspace }}/mcp/youtube/dist/
+          echo "=== MCP config ==="
+          cat /tmp/mcp-config.json
+          echo "=== .mcp.json ==="
+          cat ${{ github.workspace }}/.mcp.json
+          echo "=== Test MCP server starts ==="
+          timeout 5 node ${{ github.workspace }}/mcp/youtube/dist/index.js || true
+
       - name: Fetch AI trends with Claude Code
         uses: anthropics/claude-code-action@v1
         with:
