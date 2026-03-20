@@ -32,12 +32,15 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          model: claude-haiku-4-5-20251001
+          claude_args: "--model claude-haiku-4-5-20251001"
           prompt: |
             Run the /get-ai-trends slash command to fetch today's trending AI videos.
             Save the report to output/ with the filename format YYYY-MM-DD-trends.md.
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
+      - name: Publish report to Actions summary
+        run: cat output/*.md >> $GITHUB_STEP_SUMMARY
 
       - name: Commit trend report
         run: |
