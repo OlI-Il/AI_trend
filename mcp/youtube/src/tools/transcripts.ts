@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { YoutubeTranscript } from "youtube-transcript";
+import { fetchTranscript } from "youtube-transcript";
 import { CHARACTER_LIMIT } from "../constants.js";
 import type { TranscriptEntry } from "../types.js";
 
@@ -70,7 +70,7 @@ Errors:
     },
     async (params) => {
       try {
-        const rawEntries = await YoutubeTranscript.fetchTranscript(params.video_id, {
+        const rawEntries = await fetchTranscript(params.video_id, {
           lang: params.language,
         });
 
