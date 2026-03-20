@@ -39,8 +39,12 @@ jobs:
             Bash(python*)
             mcp__youtube__*
           prompt: |
-            Run the /get-ai-trends slash command to fetch today's trending AI videos.
-            Save the report to output/ with the filename format YYYY-MM-DD-trends.md.
+            Use the youtube MCP tools (mcp__youtube__youtube_search_videos, mcp__youtube__youtube_get_video)
+            to search for the top 10 trending AI videos from the last 24 hours. Search for:
+            "artificial intelligence", "LLM", "AI agents", "generative AI".
+            For each video collect title, channel, views, URL.
+            Write a markdown report to output/YYYY-MM-DD-trends.md (use today's date) with a table
+            of results and a highlights section. Do not use mock data or Python scripts.
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
