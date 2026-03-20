@@ -1,12 +1,8 @@
 {
-  "mcpServers": {
-    "youtube": {
-      "command": "npx",
-      "args": ["-y", "@kirbah/mcp-youtube"]
-    },
-    "gmail": {
-      "command": "npx",
-      "args": ["@shinzolabs/gmail-mcp"]
-    }
+  "permissions": {
+    "allow": [
+      "Write(output/**)",
+      "mcp__youtube__*"
+    ]
   }
 }
