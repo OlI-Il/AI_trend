@@ -3,7 +3,7 @@ __pycache__/
 .env
 credentials.json
 token.json
-mcp/youtube/node_modules/
-mcp/youtube/dist/
+node_modules/
+dist/
 .claude/settings.local.json
 .worktrees/
