@@ -34,7 +34,8 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
             --model claude-sonnet-4-6
-            --allowedTools "Write(output/**),Bash(python*),mcp__youtube__*"
+            --allowedTools "Write,Bash(python*),mcp__youtube__*"
+            --mcp-config .mcp.json
           show_full_output: "true"
           prompt: |
             IMPORTANT: Do NOT create any Python scripts or code files. Do NOT write to any .py files.
