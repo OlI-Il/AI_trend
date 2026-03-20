@@ -6,3 +6,4 @@ token.json
 output/*.md
 !output/.gitkeep
 .claude/settings.local.json
+.worktrees/
