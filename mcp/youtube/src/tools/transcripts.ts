@@ -1,6 +1,6 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
-import { fetchTranscript } from "youtube-transcript";
+import * as ytTranscript from "youtube-transcript";
 import { CHARACTER_LIMIT } from "../constants.js";
 import type { TranscriptEntry } from "../types.js";
 
@@ -70,7 +70,11 @@ Errors:
     },
     async (params) => {
       try {
-        const rawEntries = await fetchTranscript(params.video_id, {
+        const fetchFn = ytTranscript.fetchTranscript ?? ytTranscript.YoutubeTranscript?.fetchTranscript;
+        if (!fetchFn) {
+          throw new Error("youtube-transcript module has no usable export");
+        }
+        const rawEntries = await fetchFn(params.video_id, {
           lang: params.language,
         });
 
