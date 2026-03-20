@@ -7,6 +7,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
+    "postinstall": "node -e \"const fs=require('fs'),p='node_modules/youtube-transcript/package.json',pkg=JSON.parse(fs.readFileSync(p));pkg.main='dist/youtube-transcript.esm.js';fs.writeFileSync(p,JSON.stringify(pkg,null,2))\"",
     "build": "tsc",
     "clean": "rm -rf dist"
   },
