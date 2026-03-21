@@ -64,6 +64,10 @@ jobs:
           echo "=== Test MCP server starts ==="
           timeout 5 node ${{ github.workspace }}/mcp/youtube/dist/index.js || true
 
+      - name: Get today's date
+        id: date
+        run: echo "today=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
       - name: Fetch AI trends with Claude Code
         uses: anthropics/claude-code-action@v1
         with:
@@ -77,11 +81,13 @@ jobs:
             IMPORTANT: Do NOT create any Python scripts or code files. Do NOT write to any .py files.
             Only use MCP tools and the Write tool to create the final markdown report.
 
+            Today's date is ${{ steps.date.outputs.today }}.
+
             Use the youtube MCP tools (mcp__youtube__youtube_search_videos, mcp__youtube__youtube_get_video)
             to search for the top 10 trending AI videos from the last 24 hours. Search for:
             "artificial intelligence", "LLM", "AI agents", "generative AI".
             For each video collect title, channel, views, URL.
-            Write the markdown report directly to output/YYYY-MM-DD-trends.md (use today's date) with a table
+            Write the markdown report directly to output/${{ steps.date.outputs.today }}-trends.md with a table
             of results and a highlights section. Use the Write tool to create the report file — do not use
             Bash or Python to write it.
         env:
