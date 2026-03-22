@@ -7,8 +7,8 @@ Learning project to master Claude Code automation features while building a prac
 ## Tech Stack
 
 - **Language**: Python 3.11+
-- **MCP**: @kirbah/mcp-youtube (npm), @shinzolabs/gmail-mcp (npm), Slack (built-in)
-- **APIs**: YouTube Data API v3, Gmail API
+- **MCP**: @kirbah/mcp-youtube (npm), @shinzolabs/gmail-mcp (npm), @notionhq/notion-mcp-server (npm), Slack (built-in)
+- **APIs**: YouTube Data API v3, Gmail API, Notion API
 - **CI/CD**: GitHub Actions with `claude-code-action`
 
 ## Key Commands
@@ -30,7 +30,7 @@ python src/get_trends.py
 
 ## MCP Servers
 
-Registered in `.claude/settings.json` (committed — teammates get them automatically on clone).
+Registered in `.mcp.json` (committed — teammates get them automatically on clone). Permissions are in `.claude/settings.json`.
 
 | Server | Package | Purpose |
 |--------|---------|---------|
@@ -47,7 +47,8 @@ Copy `.env.example` to `.env` and fill in your keys. Never commit `.env`.
 
 ```
 src/get_trends.py          — Core automation script
-.claude/settings.json      — MCP server registration (npm packages, shared)
+.mcp.json                  — MCP server registration (auto-loaded by Claude Code)
+.claude/settings.json      — Permissions for MCP tools
 .claude/commands/           — Slash commands
 .claude/hooks.json          — Hook configurations
 skills/ai-trends/           — Custom skill definitions
@@ -61,7 +62,7 @@ Each Claude Code feature has one working example in this project:
 
 1. **CLAUDE.md** — This file. Project instructions Claude reads automatically.
 2. **MEMORY.md** — Persistent memory across conversations.
-3. **MCP Server** — `.claude/settings.json` (npm packages: @kirbah/mcp-youtube, @shinzolabs/gmail-mcp)
+3. **MCP Server** — `.mcp.json` (npm packages: @kirbah/mcp-youtube, @notionhq/notion-mcp-server)
 4. **Skill** — `skills/ai-trends/skill.md`
 5. **Hook** — `.claude/hooks.json` (post-tool-use logging)
 6. **Slash Command** — `.claude/commands/get-ai-trends.md`

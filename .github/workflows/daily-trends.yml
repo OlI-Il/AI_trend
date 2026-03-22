@@ -103,10 +103,10 @@ jobs:
             Bash or Python to write it.
 
             After saving the report file, also create a Notion page:
-            - Use the Notion MCP to create a new page under parent page ID "${{ env.NOTION_PARENT_PAGE_ID }}"
+            - Use mcp__notion__create_page to create a new page under parent page ID "${{ env.NOTION_PARENT_PAGE_ID }}"
             - Title the page "AI Trends — ${{ steps.date.outputs.today }}"
-            - Include the full report content as the page body
-            - If Notion creation fails (e.g. missing token), log a warning but do not fail the workflow
+            - Include the full report content as the page body in markdown
+            - If Notion creation fails (e.g. missing token or page ID), log a warning but do not fail the workflow
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
