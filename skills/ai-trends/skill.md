@@ -25,6 +25,7 @@ Activate this skill when the user:
    - View it here (display in chat)
    - Send via Gmail (use Gmail MCP)
    - Post to Slack (use Slack MCP)
+   - Save to Notion (use Notion MCP — create a page under the parent page with the report content)
 
 ## Output Format
 
