@@ -37,6 +37,7 @@ Registered in `.claude/settings.json` (committed — teammates get them automati
 | `youtube` | `@kirbah/mcp-youtube` (npm) | Search videos, get details, transcripts |
 | `gmail` | `@shinzolabs/gmail-mcp` (npm) | Send trend reports via Gmail |
 | `slack` | Built-in (claude.ai) | Post trends to Slack channels |
+| `notion` | `@notionhq/notion-mcp-server` (npm) | Create trend report pages in Notion |
 
 ## Environment Variables
 
