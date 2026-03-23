@@ -7,11 +7,14 @@
       ]
     },
     "notion": {
-      "command": "sh",
+      "command": "npx",
       "args": [
-        "-c",
-        "set -a; . ./.env 2>/dev/null; set +a; exec npx -y @notionhq/notion-mcp-server"
-      ]
+        "-y",
+        "@notionhq/notion-mcp-server"
+      ],
+      "env": {
+        "NOTION_TOKEN": "${NOTION_TOKEN}"
+      }
     }
   }
 }
