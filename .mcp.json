@@ -4,20 +4,14 @@
       "command": "node",
       "args": [
         "mcp/youtube/dist/index.js"
-      ],
-      "env": {
-        "YOUTUBE_API_KEY": "${YOUTUBE_API_KEY}"
-      }
+      ]
     },
     "notion": {
-      "command": "npx",
+      "command": "sh",
       "args": [
-        "-y",
-        "@notionhq/notion-mcp-server"
-      ],
-      "env": {
-        "NOTION_TOKEN": "${NOTION_TOKEN}"
-      }
+        "-c",
+        "set -a; . ./.env 2>/dev/null; set +a; exec npx -y @notionhq/notion-mcp-server"
+      ]
     }
   }
 }

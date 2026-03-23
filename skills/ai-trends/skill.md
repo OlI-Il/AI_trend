@@ -24,7 +24,7 @@ Activate this skill when the user:
 4. **Save to Notion**: After saving the file, always create a Notion page using the Notion MCP:
    - Use `mcp__notion__create_page` to create a page under the parent page ID from `NOTION_PARENT_PAGE_ID` env var
    - Title: "AI Trends — YYYY-MM-DD"
-   - Body: the full report content in markdown
+   - Body: the full report content as Notion block objects in the `children` parameter
    - If Notion fails (e.g. missing token), warn the user but continue
 
 5. **Additional delivery**: Ask the user if they also want to:
