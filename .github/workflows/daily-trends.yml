@@ -1,10 +1,8 @@
 name: Daily AI Trends
 
 on:
-  schedule:
-    # 9 AM Melbourne time (AEDT, UTC+11). Drifts 1 hour to 10 AM in AEST (UTC+10) winter.
-    - cron: '0 22 * * *'
-  workflow_dispatch: # Allow manual trigger for testing
+  # Schedule paused temporarily. Keep manual trigger available for testing.
+  workflow_dispatch:
 
 permissions:
   contents: write
