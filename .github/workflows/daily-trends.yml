@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTION_PARENT_PAGE_ID: ${{ secrets.NOTION_PARENT_PAGE_ID }}
 
     steps:
       - name: Checkout repository
@@ -46,6 +48,13 @@ jobs:
                 "env": {
                   "YOUTUBE_API_KEY": "${YOUTUBE_API_KEY}"
                 }
+              },
+              "notion": {
+                "command": "npx",
+                "args": ["-y", "@notionhq/notion-mcp-server"],
+                "env": {
+                  "NOTION_TOKEN": "${NOTION_TOKEN}"
+                }
               }
             }
           }
@@ -57,6 +66,8 @@ jobs:
           ls -la ${{ github.workspace }}/mcp/youtube/dist/
           echo "=== YOUTUBE_API_KEY present ==="
           if [ -n "${YOUTUBE_API_KEY}" ]; then echo "yes"; else echo "no"; fi
+          echo "=== NOTION_TOKEN present ==="
+          if [ -n "${NOTION_TOKEN}" ]; then echo "yes"; else echo "no"; fi
           echo "=== MCP config ==="
           cat /tmp/mcp-config.json
           echo "=== .mcp.json ==="
@@ -74,7 +85,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
             --model claude-sonnet-4-6
-            --allowedTools "Write,Bash(python*),mcp__youtube__*"
+            --allowedTools "Write,Bash(python*),mcp__youtube__*,mcp__notion__API-*"
             --mcp-config /tmp/mcp-config.json
           show_full_output: "true"
           prompt: |
@@ -90,6 +101,11 @@ jobs:
             Write the markdown report directly to output/${{ steps.date.outputs.today }}-trends.md with a table
             of results and a highlights section. Use the Write tool to create the report file — do not use
             Bash or Python to write it.
+
+            After saving the report file, also create a Notion page:
+            - Use mcp__notion__API-post-page to create a page with parent {"page_id": "${{ env.NOTION_PARENT_PAGE_ID }}"} and properties containing a title "AI Trends — ${{ steps.date.outputs.today }}"
+            - Try including the report as children blocks; if that fails (known serialization issue in v2.2.1), retry with title-only and log a warning
+            - If Notion creation fails entirely (e.g. missing token or page ID), log a warning but do not fail the workflow
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 

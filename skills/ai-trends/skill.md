@@ -21,8 +21,13 @@ Activate this skill when the user:
 
 3. **Save report**: Write the report to `output/YYYY-MM-DD-trends.md` using today's date.
 
-4. **Delivery options**: Ask the user how they'd like to receive the report:
-   - View it here (display in chat)
+4. **Save to Notion**: After saving the file, always create a Notion page using the Notion MCP:
+   - Use `mcp__notion__API-post-page` to create a page
+   - Pass `parent` as `{"page_id": "<NOTION_PARENT_PAGE_ID>"}` and `properties` with a title property set to "AI Trends — YYYY-MM-DD"
+   - Try including the report as `children` blocks; if that fails (known serialization issue in v2.2.1), retry with title only and note the limitation to the user
+   - If Notion fails entirely (e.g. missing token), warn the user but continue
+
+5. **Additional delivery**: Ask the user if they also want to:
    - Send via Gmail (use Gmail MCP)
    - Post to Slack (use Slack MCP)
 

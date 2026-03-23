@@ -2,9 +2,21 @@
   "mcpServers": {
     "youtube": {
       "command": "node",
-      "args": ["mcp/youtube/dist/index.js"],
+      "args": [
+        "mcp/youtube/dist/index.js"
+      ],
       "env": {
         "YOUTUBE_API_KEY": "${YOUTUBE_API_KEY}"
+      }
+    },
+    "notion": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@notionhq/notion-mcp-server"
+      ],
+      "env": {
+        "NOTION_TOKEN": "${NOTION_TOKEN}"
       }
     }
   }
